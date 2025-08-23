@@ -15,17 +15,16 @@ A comprehensive collection of web development tools and CSS generators, built wi
 
 ## Libraries used
 Thanks to the following libraries, I was able to build this project:
-*   **React (with Vite):** A JavaScript library for building user interfaces.
-*   **Vite:** A fast build tool that provides a lightning-fast development experience.
-*   **Bootstrap:** A popular CSS framework for responsive and mobile-first front-end web development.
-*   **React Syntax Highlighter:** For elegant code block rendering.
+*   **[React](https://react.dev/) (with [Vite](https://vite.dev/))**
+*   **[Bootstrap](https://getbootstrap.com/)**
+*   **[React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)**
 
 ## Building and testing
 
 ### Prerequisites
 
-*   Node.js (LTS version recommended)
-*   npm or yarn
+*   [Node.js](https://nodejs.org/) (LTS version recommended)
+*   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ### Installation
 
