@@ -17,6 +17,7 @@ export default function App() {
     return savedTheme || (prefersDark ? 'dark' : 'light');
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,6 +33,10 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
   };
 
   const renderTool = () => {
@@ -65,10 +70,34 @@ export default function App() {
 
   return (
     <div className="fill-container">
-      <Sidebar activeTool={activeTool} setActiveTool={setActiveTool} theme={theme} toggleTheme={toggleTheme} />
-      <main className="content">
-          {renderTool()}
-      </main>
+      {/* Hamburger (only mobile, hidden on desktop) */}
+      {!isSidebarOpen && (
+        <button
+          className="hamburger-btn d-md-none"
+          onClick={toggleSidebar}
+          aria-label="Open sidebar"
+        >
+          ☰
+        </button>
+      )}
+
+      {/* Sidebar */}
+      <Sidebar
+        activeTool={activeTool}
+        setActiveTool={setActiveTool}
+        theme={theme}
+        toggleTheme={toggleTheme}
+        isOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+      />
+
+      {/* Overlay (mobile only, when sidebar is open) */}
+      {isSidebarOpen && (
+        <div className="sidebar-overlay d-md-none" onClick={toggleSidebar}></div>
+      )}
+
+      {/* Main Content */}
+      <main className="content">{renderTool()}</main>
     </div>
   );
 }

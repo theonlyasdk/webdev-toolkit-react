@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme }) => {
+const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme, isOpen, toggleSidebar }) => {
   const tools = [
     { id: 'box-shadow-generator', name: 'Box Shadow', icon: 'bi-box' },
     { id: 'text-shadow-generator', name: 'Text Shadow', icon: 'bi-fonts' },
@@ -13,35 +12,57 @@ const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme }) => {
   ];
 
   return (
-    <nav className="sidebar">
-      <div>
-        <div className="sidebar-header">Webdev Toolkit</div>
-        <ul className="nav flex-column">
-          {tools.map(tool => (
-            <li className="nav-item" key={tool.id}>
-              <a
-                className={`nav-link ${activeTool === tool.id ? 'active' : ''}`}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTool(tool.id);
-                }}
-              >
-                <i className={`bi ${tool.icon}`}></i>{tool.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="sidebar-footer">
-        <button className="btn btn-link theme-toggle-btn" onClick={toggleTheme} title="Toggle theme">
-          <i className={`bi ${theme === 'dark' ? 'bi-moon-fill' : 'bi-sun-fill'}`}></i>
+    <>
+      {/* Overlay for mobile (click to close) */}
+      {isOpen && <div className="sidebar-overlay d-md-none" onClick={toggleSidebar}></div>}
+
+      <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
+        {/* Close button (mobile only) */}
+        <button className="close-btn d-md-none" onClick={toggleSidebar}>
+          ✖
         </button>
-        <a className="btn btn-link theme-toggle-btn" href="https://github.com/theonlyasdk/webdev-toolkit-react" title="View on GitHub">
-          <i className="bi bi-github"></i>
-        </a>
-      </div>
-    </nav>
+
+        <div>
+          <div className="sidebar-header">Webdev Toolkit</div>
+          <ul className="nav flex-column">
+            {tools.map(tool => (
+              <li className="nav-item" key={tool.id}>
+                <a
+                  className={`nav-link ${activeTool === tool.id ? 'active' : ''}`}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTool(tool.id);
+                    toggleSidebar(); // close after selecting in mobile
+                  }}
+                >
+                  <i className={`bi ${tool.icon} me-2`}></i>{tool.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sidebar-footer">
+          <button
+            className="btn btn-link theme-toggle-btn"
+            onClick={toggleTheme}
+            title="Toggle theme"
+          >
+            <i className={`bi ${theme === 'dark' ? 'bi-moon-fill' : 'bi-sun-fill'}`}></i>
+          </button>
+          <a
+            className="btn btn-link theme-toggle-btn"
+            href="https://github.com/theonlyasdk/webdev-toolkit-react"
+            title="View on GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="bi bi-github"></i>
+          </a>
+        </div>
+      </nav>
+    </>
   );
 };
 
