@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap');
+
 :root {
   --bs-body-bg: #f8f9fa;
   --bs-body-color: #212529;
@@ -68,8 +70,19 @@ body {
   color: var(--bs-body-color);
 }
 
-.sidebar {
+.fill-container {
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
   min-width: 250px;
   background-color: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
@@ -93,26 +106,36 @@ body {
   margin-right: 1rem;
 }
 
-.sidebar .nav-link.active,
 .sidebar .nav-link:hover {
   background-color: var(--link-hover-bg);
-  color: var(--link-active-color);
 }
+
+.sidebar .nav-link.active {
+  background-color: var(--link-hover-bg);
+  color: var(--link-active-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 .sidebar .sidebar-header {
   padding: 0 1.5rem 1rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  font-family: "Sora", sans-serif; 
+  text-align: center;  
 }
 
 .sidebar-footer {
   margin-top: auto;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .content {
   flex-grow: 1;
   padding: 1rem;
+  overflow-y: scroll;
 }
 
 .tool-card {
@@ -161,27 +184,21 @@ body {
   transition: transform 0.2s;
 }
 
-.code-output {
+.tool-code-output {
   position: relative;
-  background-color: var(--code-bg);
-  color: var(--code-color);
-  padding: 1rem;
+  padding: 0rem;
   border-radius: 0.5rem;
-  font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
   white-space: pre-wrap;
   word-break: break-all;
 }
 
 .copy-btn {
   position: absolute;
-  top: 0.75rem;
+  top: 1rem !important;
   right: 0.75rem;
-  background-color: #495057;
   border: none;
-}
-
-.copy-btn:hover {
-  background-color: #6c757d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 1em;
 }
 
 input[type="range"] {
@@ -221,26 +238,10 @@ input[type="range"]::-moz-range-thumb {
   margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--sidebar-border);
-  }
-
-  .content {
-    margin-left: 0;
-    padding: 1rem;
-  }
-}
-
 .theme-toggle-btn {
   color: var(--link-color);
   font-size: 1.25rem;
   padding: 0.5rem;
-  margin-left: 0.5rem;
 }
 
 .theme-toggle-btn:hover {
@@ -384,4 +385,26 @@ input[type="range"]::-moz-range-thumb {
 .theme-toggle-btn:hover {
   color: var(--link-active-color);
   background-color: var(--link-hover-bg);
+}
+
+@media (max-width: 768px) {
+  .fill-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--sidebar-border);
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+  }
 }

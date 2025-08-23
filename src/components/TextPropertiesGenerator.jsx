@@ -13,6 +13,7 @@ const TextPropertiesGenerator = () => {
   const [colorType, setColorType] = useState('solid'); // 'solid' or 'gradient'
   const [solidColor, setSolidColor] = useState('#0d6efd');
   const [gradientColor, setGradientColor] = useState('linear-gradient(90deg, #0d6efd 0%, #6f42c1 100%)');
+  const [previewText, setPreviewText] = useState('Text');
 
   const resetFontSize = () => setFontSize(56);
   const resetFontWeight = () => setFontWeight(700);
@@ -41,6 +42,10 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
         <div className="row g-4">
           <div className="col-lg-5">
             <div className="d-flex flex-column gap-3">
+              <div>
+                <label htmlFor="previewText" className="form-label">Preview Text</label>
+                <textarea className="form-control" id="previewText" rows="3" value={previewText} onChange={e => setPreviewText(e.target.value)}></textarea>
+              </div>
               <RangeInput label="Font Size" id="tp-size" value={fontSize} min="10" max="150" unit="px" onChange={e => setFontSize(e.target.value)} onReset={resetFontSize} />
               <RangeInput label="Font Weight" id="tp-weight" value={fontWeight} min="100" max="900" step="100" unit="" onChange={e => setFontWeight(e.target.value)} onReset={resetFontWeight} />
               <RangeInput label="Letter Spacing" id="tp-spacing" value={letterSpacing} min="-5" max="20" unit="px" onChange={e => setLetterSpacing(e.target.value)} onReset={resetLetterSpacing} />
@@ -63,7 +68,7 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
           </div>
           <div className="col-lg-7">
             <div className="preview-area mb-3">
-              <div id="text-properties-preview" style={textPropertiesStyle}>Text</div>
+              <div id="text-properties-preview" style={textPropertiesStyle}>{previewText}</div>
             </div>
             <CodeOutput code={textPropertiesCode} />
           </div>

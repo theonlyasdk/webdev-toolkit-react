@@ -1,5 +1,6 @@
-
 import React, { useState } from 'react';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const CodeOutput = ({ code }) => {
   const [copied, setCopied] = useState(false);
@@ -12,11 +13,13 @@ const CodeOutput = ({ code }) => {
   };
 
   return (
-    <div className="code-output">
+    <div className="tool-code-output">
       <button className="btn btn-sm btn-primary copy-btn" title="Copy" onClick={handleCopy}>
         <i className={`bi ${copied ? 'bi-check-lg' : 'bi-clipboard'}`}></i>
       </button>
-      <code>{code}</code>
+      <SyntaxHighlighter language="css" style={dark}>
+        {code}
+      </SyntaxHighlighter>
     </div>
   );
 };

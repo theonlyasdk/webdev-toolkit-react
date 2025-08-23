@@ -37,6 +37,9 @@ const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme }) => {
         <button className="btn btn-link theme-toggle-btn" onClick={toggleTheme} title="Toggle theme">
           <i className={`bi ${theme === 'dark' ? 'bi-moon-fill' : 'bi-sun-fill'}`}></i>
         </button>
+        <a className="btn btn-link theme-toggle-btn" href="https://github.com/theonlyasdk/webdev-tools-react" title="View on GitHub">
+          <i className="bi bi-github"></i>
+        </a>
       </div>
     </nav>
   );

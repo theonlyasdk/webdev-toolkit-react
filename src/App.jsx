@@ -48,7 +48,7 @@ export default function App() {
   };
 
   return (
-    <div className="d-flex">
+    <div className="fill-container">
       <Sidebar activeTool={activeTool} setActiveTool={setActiveTool} theme={theme} toggleTheme={toggleTheme} />
       <main className="content">
           {renderTool()}
