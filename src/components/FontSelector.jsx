@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './FontSelector.module.css';
+import useDebounce from '../hooks/useDebounce';
 
 const googleFontsApiKey = import.meta.env.VITE_GOOGLE_FONTS_API_KEY;
 
@@ -23,7 +24,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const [maxItemsToShow, setMaxItemsToShow] = useState(30);
-  
+  const debouncedSearchTerm = useDebounce(internalSearchTerm, 1300);
   const dropdownRef = useRef(null);
   const listRef = useRef(null);
 
@@ -54,12 +55,12 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
 
   useEffect(() => {
     if (!fonts) return;
-    const lowercasedSearchTerm = internalSearchTerm.toLowerCase();
+    const lowercasedSearchTerm = debouncedSearchTerm.toLowerCase();
     const newFilteredFonts = fonts.filter(font =>
       font.family.toLowerCase().includes(lowercasedSearchTerm)
     );
     setFilteredFonts(newFilteredFonts);
-  }, [internalSearchTerm, fonts]);
+  }, [debouncedSearchTerm, fonts]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
