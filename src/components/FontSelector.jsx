@@ -106,7 +106,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
     }
   };
 
-  const maxItemsToShow = 30;
+  const maxItemsToShow = 120;
 
   const loadFont = (fontFamily) => {
     const fontId = `font-${fontFamily.replace(/ /g, '-')}`;

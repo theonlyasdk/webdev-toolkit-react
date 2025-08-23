@@ -11,7 +11,6 @@ A comprehensive collection of web development tools and CSS generators, built wi
 *   **Color Converter:** Convert colors between HEX, RGB, and HSL formats.
 *   **Text Properties Generator:** Experiment with font sizes, weights, letter spacing, and even apply gradient text colors.
 *   **Transform Generator:** Generate CSS transform properties for scaling, rotating, translating, and skewing elements.
-*   **Light/Dark Mode:** Toggle between light and dark themes for a comfortable user experience.
 
 ## Libraries used
 Thanks to the following libraries, I was able to build this project:

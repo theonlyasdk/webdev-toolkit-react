@@ -8,7 +8,6 @@ import ColorConverter from './components/ColorConverter';
 import TextPropertiesGenerator from './components/TextPropertiesGenerator';
 import TransformGenerator from './components/TransformGenerator';
 
-// Main App Component
 export default function App() {
   const [activeTool, setActiveTool] = useState('box-shadow-generator');
   const [theme, setTheme] = useState(() => {
