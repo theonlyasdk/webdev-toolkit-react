@@ -22,6 +22,8 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [maxItemsToShow, setMaxItemsToShow] = useState(30);
+  
   const dropdownRef = useRef(null);
   const listRef = useRef(null);
 
@@ -78,6 +80,10 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
     setInternalSearchTerm(''); // Clear search after selection
   };
 
+  const showMoreFonts = () => {
+    setMaxItemsToShow(prevMax => prevMax + 250);
+  };
+
   const handleKeyDown = (e) => {
     const maxIndex = Math.min(filteredFonts.length, maxItemsToShow) - 1;
     if (e.key === 'ArrowDown') {
@@ -106,8 +112,6 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
     }
   };
 
-  const maxItemsToShow = 120;
-
   const loadFont = (fontFamily) => {
     const fontId = `font-${fontFamily.replace(/ /g, '-')}`;
     if (!document.getElementById(fontId)) {
@@ -127,6 +131,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
           type="text"
           className="form-control"
           id="font-display"
+          placeholder="Enter a font name..."
           value={selectedFont}
           onChange={(e) => onFontSelect(e.target.value)}
         />
@@ -175,7 +180,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
               })
             )}
             {filteredFonts.length > maxItemsToShow && (
-              <li className="list-group-item disabled">
+              <li className="list-group-item list-group-item-action" onClick={showMoreFonts} style={{ cursor: 'pointer' }}>
                 ... {filteredFonts.length - maxItemsToShow} more results
               </li>
             )}

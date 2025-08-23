@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sora:wght@100..800&display=swap');
 
+* {
+  transition: all 200ms cubic-bezier(.09,-0.09,0,1);
+}
 :root {
   --bs-body-bg: #f8f9fa;
   --bs-body-color: #212529;
@@ -80,8 +83,9 @@ body {
 
 .sidebar .nav-link.active {
   background-color: var(--link-hover-bg);
-  color: var(--link-active-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--bs-text-light);
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13);
 }
 
 .sidebar .sidebar-header {

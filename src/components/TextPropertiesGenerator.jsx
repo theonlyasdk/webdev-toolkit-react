@@ -38,7 +38,7 @@ const TextPropertiesGenerator = () => {
   const textPropertiesCode = `font-size: ${fontSize}px;
 font-weight: ${fontWeight};
 letter-spacing: ${letterSpacing}px;
-font-family: '${fontFamily}', sans-serif;
+font-family: '${fontFamily.trim() || 'Inter'}', sans-serif;
 ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColor};
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;`}`;
@@ -60,7 +60,7 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
             <div className="d-flex flex-column gap-3">
               <div>
                 <label htmlFor="previewText" className="form-label">Preview Text</label>
-                <textarea className="form-control" id="previewText" rows="3" value={previewText} onChange={e => setPreviewText(e.target.value)}></textarea>
+                <textarea className="form-control" id="previewText" placeholder="Enter preview text..." rows="3" value={previewText} onChange={e => setPreviewText(e.target.value)}></textarea>
               </div>
               <div className="form-check form-switch">
                 <input className="form-check-input" type="checkbox" role="switch" id="useGoogleFonts" checked={useGoogleFonts} onChange={() => setUseGoogleFonts(!useGoogleFonts)} />
