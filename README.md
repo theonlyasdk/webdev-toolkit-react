@@ -1,12 +1,74 @@
-# React + Vite
+# Webdev Toolkit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive collection of web development tools and CSS generators, built with React. This toolkit aims to speed up common web development tasks by providing easy to use tools to generate CSS code for various properties, convert colors, and more.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **Box Shadow Generator:** Create custom CSS box shadows with live preview.
+*   **Text Shadow Generator:** Design unique text shadows for your typography.
+*   **Gradient Generator:** Generate beautiful linear and radial CSS gradients.
+*   **Border Radius Generator:** Easily create complex border-radius shapes.
+*   **Color Converter:** Convert colors between HEX, RGB, and HSL formats.
+*   **Text Properties Generator:** Experiment with font sizes, weights, letter spacing, and even apply gradient text colors.
+*   **Transform Generator:** Generate CSS transform properties for scaling, rotating, translating, and skewing elements.
+*   **Light/Dark Mode:** Toggle between light and dark themes for a comfortable user experience.
 
-## Expanding the ESLint configuration
+## Libraries used
+Thanks to the following libraries, I was able to build this project:
+*   **React (with Vite):** A JavaScript library for building user interfaces.
+*   **Vite:** A fast build tool that provides a lightning-fast development experience.
+*   **Bootstrap:** A popular CSS framework for responsive and mobile-first front-end web development.
+*   **React Syntax Highlighter:** For elegant code block rendering.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Building and testing
+
+### Prerequisites
+
+*   Node.js (LTS version recommended)
+*   npm or yarn
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/theonlyasdk/webdev-toolkit-react.git
+    cd webdev-toolkit-react
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+### Development
+
+To run the project in development mode:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+This will start the development server, and you can view the application in your browser (usually at `http://localhost:5173`).
+
+### Building for Production
+
+To build the application for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+This command bundles the application into the `dist` directory.
+
+## Contributing
+
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
+
+## License
+
+Licensed under the [MIT license](LICENSE)
