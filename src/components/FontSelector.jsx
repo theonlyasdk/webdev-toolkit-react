@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import styles from './FontSelector.module.css';
+
+const googleFontsApiKey = import.meta.env.VITE_GOOGLE_FONTS_API_KEY;
 
 const mockFonts = [
   { family: 'Roboto', files: { regular: '' } },
@@ -18,16 +21,31 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
   const [fonts, setFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef(null);
+  const listRef = useRef(null);
 
   useEffect(() => {
-    // Simulate fetching fonts from Google Fonts API
     const fetchFonts = async () => {
-      // In a real application, you would fetch from Google Fonts API here
-      const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBJ83gfLLpwON3fJEK4v_VGTqlzuRC0bIw');
-      const data = await response.json();
-      setFonts(data.items);
-      // setFonts(mockFonts);
+      const cachedFonts = localStorage.getItem('google-fonts');
+      const cachedTimestamp = localStorage.getItem('google-fonts-timestamp');
+      const now = new Date().getTime();
+
+      if (cachedFonts && cachedTimestamp && (now - cachedTimestamp < 24 * 60 * 60 * 1000)) {
+        setFonts(JSON.parse(cachedFonts));
+      } else {
+        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${googleFontsApiKey}`);
+        const data = await response.json();
+        
+        if (data) {
+          setFonts(data.items);
+          
+          localStorage.setItem('google-fonts', JSON.stringify(data.items));
+          localStorage.setItem('google-fonts-timestamp', now);
+        } else {
+          setFonts(mockFonts);
+        }
+      }
     };
     fetchFonts();
   }, []);
@@ -60,7 +78,46 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
     setInternalSearchTerm(''); // Clear search after selection
   };
 
+  const handleKeyDown = (e) => {
+    const maxIndex = Math.min(filteredFonts.length, maxItemsToShow) - 1;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedIndex(prevIndex => {
+        const newIndex = prevIndex < maxIndex ? prevIndex + 1 : 0;
+        if (listRef.current && listRef.current.children[newIndex]) {
+          listRef.current.children[newIndex].scrollIntoView({ block: 'nearest' });
+        }
+        return newIndex;
+      });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedIndex(prevIndex => {
+        const newIndex = prevIndex > 0 ? prevIndex - 1 : maxIndex;
+        if (listRef.current && listRef.current.children[newIndex]) {
+          listRef.current.children[newIndex].scrollIntoView({ block: 'nearest' });
+        }
+        return newIndex;
+      });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (focusedIndex !== -1) {
+        handleSelect(filteredFonts[focusedIndex].family);
+      }
+    }
+  };
+
   const maxItemsToShow = 30;
+
+  const loadFont = (fontFamily) => {
+    const fontId = `font-${fontFamily.replace(/ /g, '-')}`;
+    if (!document.getElementById(fontId)) {
+      const link = document.createElement('link');
+      link.id = fontId;
+      link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+  };
 
   return (
     <div className="font-selector" ref={dropdownRef}>
@@ -79,27 +136,44 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
       </div>
 
       {isOpen && (
-        <div className={`font-dropdown-menu card ${isOpen ? 'show' : ''}`}>
-          <div className="card-header">
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              placeholder="Search fonts..."
-              value={internalSearchTerm}
-              onChange={(e) => setInternalSearchTerm(e.target.value)}
-            />
+        <div className="font-dropdown-menu card show">
+          <div className="font-dropdown-menu-header">
+            <div className="input-group border-0">
+              <span className="input-group-text font-dropdown-menu-search-icon" style={{ paddingRight: '0.5rem' }}>
+                <i className="bi bi-search"></i>
+              </span>
+              <input
+                type="text"
+                className="form-control border-0 font-dropdown-menu-search-box"
+                placeholder="Search fonts..."
+                value={internalSearchTerm}
+                onChange={(e) => setInternalSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
+                style={{ paddingLeft: '0.5rem' }}
+              />
+            </div>
           </div>
-          <ul className="font-dropdown-list list-group list-group-flush">
-            {filteredFonts.slice(0, maxItemsToShow).map(font => (
-              <li
-                key={font.family}
-                className="list-group-item list-group-item-action"
-                onClick={() => handleSelect(font.family)}
-                style={{ fontFamily: font.family, cursor: 'pointer' }}
-              >
-                {font.family}
+          <ul className="font-dropdown-list list-group list-group-flush" ref={listRef}>
+            {filteredFonts.length === 0 ? (
+              <li className="list-group-item disabled text-center">
+                <i className="bi bi-exclamation-triangle me-2"></i>
+                No fonts found
               </li>
-            ))}
+            ) : (
+              filteredFonts.slice(0, maxItemsToShow).map((font, index) => {
+                loadFont(font.family);
+                return (
+                  <li
+                    key={font.family}
+                    className={`list-group-item list-group-item-action ${index === focusedIndex ? styles.focused : ''}`}
+                    onClick={() => handleSelect(font.family)}
+                    style={{ fontFamily: font.family, cursor: 'pointer' }}
+                  >
+                    {font.family}
+                  </li>
+                );
+              })
+            )}
             {filteredFonts.length > maxItemsToShow && (
               <li className="list-group-item disabled">
                 ... {filteredFonts.length - maxItemsToShow} more results
