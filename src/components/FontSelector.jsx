@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './FontSelector.module.css';
-import useDebounce from '../hooks/useDebounce';
 
 const googleFontsApiKey = import.meta.env.VITE_GOOGLE_FONTS_API_KEY;
 
@@ -17,50 +16,46 @@ const mockFonts = [
   { family: 'Indie Flower', files: { regular: '' } },
 ];
 
-const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
+const FontSelector = ({ onFontSelect, selectedFont, useGoogleFonts }) => {
   const [internalSearchTerm, setInternalSearchTerm] = useState('');
   const [fonts, setFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [maxItemsToShow, setMaxItemsToShow] = useState(30);
-  const debouncedSearchTerm = useDebounce(internalSearchTerm, 1300);
+  const [maxItemsToShow, setMaxItemsToShow] = useState(1000);
   const dropdownRef = useRef(null);
   const listRef = useRef(null);
 
-  useEffect(() => {
-    const fetchFonts = async () => {
-      const cachedFonts = localStorage.getItem('google-fonts');
-      const cachedTimestamp = localStorage.getItem('google-fonts-timestamp');
-      const now = new Date().getTime();
+  const loadFonts = async () => {
+    const cachedFonts = localStorage.getItem('google-fonts');
+    const cachedTimestamp = localStorage.getItem('google-fonts-timestamp');
+    const now = new Date().getTime();
 
-      if (cachedFonts && cachedTimestamp && (now - cachedTimestamp < 24 * 60 * 60 * 1000)) {
-        setFonts(JSON.parse(cachedFonts));
-      } else {
-        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${googleFontsApiKey}`);
-        const data = await response.json();
+    if (cachedFonts && cachedTimestamp && (now - cachedTimestamp < 24 * 60 * 60 * 1000)) {
+      setFonts(JSON.parse(cachedFonts));
+    } else {
+      const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${googleFontsApiKey}`);
+      const data = await response.json();
+      
+      if (data) {
+        setFonts(data.items);
         
-        if (data) {
-          setFonts(data.items);
-          
-          localStorage.setItem('google-fonts', JSON.stringify(data.items));
-          localStorage.setItem('google-fonts-timestamp', now);
-        } else {
-          setFonts(mockFonts);
-        }
+        localStorage.setItem('google-fonts', JSON.stringify(data.items));
+        localStorage.setItem('google-fonts-timestamp', now);
+      } else {
+        setFonts(mockFonts);
       }
-    };
-    fetchFonts();
-  }, []);
+    }
+  };
 
   useEffect(() => {
     if (!fonts) return;
-    const lowercasedSearchTerm = debouncedSearchTerm.toLowerCase();
+    const lowercasedSearchTerm = internalSearchTerm.toLowerCase();
     const newFilteredFonts = fonts.filter(font =>
       font.family.toLowerCase().includes(lowercasedSearchTerm)
     );
     setFilteredFonts(newFilteredFonts);
-  }, [debouncedSearchTerm, fonts]);
+  }, [internalSearchTerm, fonts]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -82,7 +77,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
   };
 
   const showMoreFonts = () => {
-    setMaxItemsToShow(prevMax => prevMax + 250);
+    setMaxItemsToShow(prevMax => prevMax + 150);
   };
 
   const handleKeyDown = (e) => {
@@ -111,18 +106,7 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
         handleSelect(filteredFonts[focusedIndex].family);
       }
     }
-  };
-
-  const loadFont = (fontFamily) => {
-    const fontId = `font-${fontFamily.replace(/ /g, '-')}`;
-    if (!document.getElementById(fontId)) {
-      const link = document.createElement('link');
-      link.id = fontId;
-      link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
-      link.rel = 'stylesheet';
-      document.head.appendChild(link);
-    }
-  };
+  };  
 
   return (
     <div className="font-selector" ref={dropdownRef}>
@@ -135,8 +119,9 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
           placeholder="Enter a font name..."
           value={selectedFont}
           onChange={(e) => onFontSelect(e.target.value)}
+          disabled={useGoogleFonts}
         />
-        {showChooseButton && <button className="btn btn-outline-secondary" title="Click to choose a font" type="button" onClick={() => setIsOpen(!isOpen)}>
+        {useGoogleFonts && <button className="btn btn-outline-secondary" title="Click to choose a font" type="button" onClick={() => {setIsOpen(!isOpen); if (!isOpen) {loadFonts();}}}>
           Choose
         </button>}
       </div>
@@ -161,13 +146,12 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
           </div>
           <ul className="font-dropdown-list list-group list-group-flush" ref={listRef}>
             {filteredFonts.length === 0 ? (
-              <li className="list-group-item disabled text-center">
-                <i className="bi bi-exclamation-triangle me-2"></i>
+              <li className="list-group-item disabled text-center p-4">
+                <i className="bi bi-info-circle me-2"></i>
                 No fonts found
               </li>
             ) : (
               filteredFonts.slice(0, maxItemsToShow).map((font, index) => {
-                loadFont(font.family);
                 return (
                   <li
                     key={font.family}
@@ -181,8 +165,8 @@ const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
               })
             )}
             {filteredFonts.length > maxItemsToShow && (
-              <li className="list-group-item list-group-item-action" onClick={showMoreFonts} style={{ cursor: 'pointer' }}>
-                ... {filteredFonts.length - maxItemsToShow} more results
+              <li className="list-group-item list-group-item-action text-secondary-emphasis" onClick={showMoreFonts} style={{ cursor: 'pointer' }}>
+                <small>... {filteredFonts.length - maxItemsToShow} more results</small>
               </li>
             )}
           </ul>

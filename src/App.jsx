@@ -7,6 +7,7 @@ import BorderRadiusGenerator from './components/BorderRadiusGenerator';
 import ColorConverter from './components/ColorConverter';
 import TextPropertiesGenerator from './components/TextPropertiesGenerator';
 import TransformGenerator from './components/TransformGenerator';
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function App() {
   const [activeTool, setActiveTool] = useState('box-shadow-generator');
@@ -15,6 +16,14 @@ export default function App() {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     return savedTheme || (prefersDark ? 'dark' : 'light');
   });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-bs-theme', theme);
@@ -45,6 +54,14 @@ export default function App() {
         return <BoxShadowGenerator />;
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="fill-container d-flex justify-content-center align-items-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="fill-container">

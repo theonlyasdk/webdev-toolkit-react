@@ -66,7 +66,7 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
                 <input className="form-check-input" type="checkbox" role="switch" id="useGoogleFonts" checked={useGoogleFonts} onChange={() => setUseGoogleFonts(!useGoogleFonts)} />
                 <label className="form-check-label" htmlFor="useGoogleFonts">Use Google Fonts</label>
               </div>
-              <FontSelector onFontSelect={setFontFamily} selectedFont={fontFamily} showChooseButton={useGoogleFonts} />
+              <FontSelector onFontSelect={setFontFamily} selectedFont={fontFamily} useGoogleFonts={useGoogleFonts} />
               <RangeInput label="Font Size" id="tp-size" value={fontSize} min="10" max="150" unit="px" onChange={e => setFontSize(e.target.value)} onReset={resetFontSize} />
               <RangeInput label="Font Weight" id="tp-weight" value={fontWeight} min="100" max="900" step="100" unit="" onChange={e => setFontWeight(e.target.value)} onReset={resetFontWeight} />
               <RangeInput label="Letter Spacing" id="tp-spacing" value={letterSpacing} min="-5" max="20" unit="px" onChange={e => setLetterSpacing(e.target.value)} onReset={resetLetterSpacing} />
