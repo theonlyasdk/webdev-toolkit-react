@@ -14,9 +14,10 @@ const TextPropertiesGenerator = () => {
   const [gradientColor, setGradientColor] = useState('linear-gradient(90deg, #0d6efd 0%, #6f42c1 100%)');
   const [previewText, setPreviewText] = useState('Text');
   const [fontFamily, setFontFamily] = useState('Inter');
+  const [useGoogleFonts, setUseGoogleFonts] = useState(false);
 
   useEffect(() => {
-    if (fontFamily && fontFamily !== 'Inter') { // Avoid loading Inter again if it's already the default
+    if (useGoogleFonts && fontFamily && fontFamily !== 'Inter') { // Avoid loading Inter again if it's already the default
       const link = document.createElement('link');
       link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, '+')}&display=swap`;
       link.rel = 'stylesheet';
@@ -26,7 +27,7 @@ const TextPropertiesGenerator = () => {
         document.head.removeChild(link);
       };
     }
-  }, [fontFamily]);
+  }, [fontFamily, useGoogleFonts]);
 
   const resetFontSize = () => setFontSize(56);
   const resetFontWeight = () => setFontWeight(700);
@@ -57,7 +58,15 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
         <div className="row g-4">
           <div className="col-lg-5">
             <div className="d-flex flex-column gap-3">
-              <FontSelector onFontSelect={setFontFamily} selectedFont={fontFamily} />
+              <div>
+                <label htmlFor="previewText" className="form-label">Preview Text</label>
+                <textarea className="form-control" id="previewText" rows="3" value={previewText} onChange={e => setPreviewText(e.target.value)}></textarea>
+              </div>
+              <div className="form-check form-switch">
+                <input className="form-check-input" type="checkbox" role="switch" id="useGoogleFonts" checked={useGoogleFonts} onChange={() => setUseGoogleFonts(!useGoogleFonts)} />
+                <label className="form-check-label" htmlFor="useGoogleFonts">Use Google Fonts</label>
+              </div>
+              <FontSelector onFontSelect={setFontFamily} selectedFont={fontFamily} showChooseButton={useGoogleFonts} />
               <RangeInput label="Font Size" id="tp-size" value={fontSize} min="10" max="150" unit="px" onChange={e => setFontSize(e.target.value)} onReset={resetFontSize} />
               <RangeInput label="Font Weight" id="tp-weight" value={fontWeight} min="100" max="900" step="100" unit="" onChange={e => setFontWeight(e.target.value)} onReset={resetFontWeight} />
               <RangeInput label="Letter Spacing" id="tp-spacing" value={letterSpacing} min="-5" max="20" unit="px" onChange={e => setLetterSpacing(e.target.value)} onReset={resetLetterSpacing} />
@@ -76,10 +85,6 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
               ) : (
                 <GradientPicker onGradientChange={setGradientColor} />
               )}
-              <div>
-                <label htmlFor="previewText" className="form-label">Preview Text</label>
-                <textarea className="form-control" id="previewText" rows="3" value={previewText} onChange={e => setPreviewText(e.target.value)}></textarea>
-              </div>
             </div>
           </div>
           <div className="col-lg-7">

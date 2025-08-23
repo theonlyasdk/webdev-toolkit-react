@@ -13,7 +13,7 @@ const mockFonts = [
   { family: 'Indie Flower', files: { regular: '' } },
 ];
 
-const FontSelector = ({ onFontSelect, selectedFont }) => {
+const FontSelector = ({ onFontSelect, selectedFont, showChooseButton }) => {
   const [internalSearchTerm, setInternalSearchTerm] = useState('');
   const [fonts, setFonts] = useState([]);
   const [filteredFonts, setFilteredFonts] = useState([]);
@@ -73,9 +73,9 @@ const FontSelector = ({ onFontSelect, selectedFont }) => {
           value={selectedFont}
           onChange={(e) => onFontSelect(e.target.value)}
         />
-        <button className="btn btn-outline-secondary" title="Click to choose a font" type="button" onClick={() => setIsOpen(!isOpen)}>
+        {showChooseButton && <button className="btn btn-outline-secondary" title="Click to choose a font" type="button" onClick={() => setIsOpen(!isOpen)}>
           Choose
-        </button>
+        </button>}
       </div>
 
       {isOpen && (
