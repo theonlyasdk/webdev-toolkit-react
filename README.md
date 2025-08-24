@@ -37,7 +37,7 @@ Thanks to the following libraries, I was able to build this project:
     This will start the development server, and you can view the application in your browser (usually at `http://localhost:5173`).
     Before this step, in `vite.config.js`, set the value of `base` to `/`.
     
-    To use Google Fonts search feature in text properties tool, add a `.env` file in the root directory with the following content:
+    To use Google Fonts search feature in text properties tool, create a `.env` file in the root directory with the following content:
     ```plaintext
     VITE_GOOGLE_FONTS_API_KEY=<YOUR_GOOGLE_FONTS_API_KEY>
     ```
