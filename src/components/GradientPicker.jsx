@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RangeInput from './RangeInput';
+import GradientColorPicker from './GradientColorPicker';
 
 const GradientPicker = ({ onGradientChange }) => {
   const [stops, setStops] = useState([
@@ -48,7 +49,10 @@ const GradientPicker = ({ onGradientChange }) => {
         <div id="gradient-stops">
           {stops.map(stop => (
             <div className="gradient-stop" key={stop.id}>
-              <input type="color" className="form-control form-control-color" value={stop.color} onChange={e => handleStopChange(stop.id, 'color', e.target.value)} />
+              <GradientColorPicker 
+                color={stop.color} 
+                onColorChange={(color) => handleStopChange(stop.id, 'color', color)} 
+              />
               <input type="range" className="form-range" min="0" max="100" value={stop.position} onChange={e => handleStopChange(stop.id, 'position', e.target.value)} />
               <button className="btn btn-sm btn-outline-danger" onClick={() => removeStop(stop.id)} title="Delete stop" disabled={stops.length <= 2}><i className="bi bi-trash"></i></button>
             </div>
