@@ -36,7 +36,7 @@ A comprehensive collection of web development tools and CSS generators, built wi
     ```plaintext
     VITE_GOOGLE_FONTS_API_KEY=<YOUR_GOOGLE_FONTS_API_KEY>
     ```
-    To obtain the required API key, refer to the (Google Fonts Developer API)[https://developers.google.com/fonts/docs/developer_api] page.
+    To obtain the required API key, refer to the [Google Fonts Developer API](https://developers.google.com/fonts/docs/developer_api) page.
 
 ## Libraries used
 Thanks to the following libraries, I was able to build this project:
