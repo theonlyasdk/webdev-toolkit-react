@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import RangeInput from './RangeInput';
 import CodeOutput from './CodeOutput';
+import ColorPickerButton from './ColorPickerButton';
 
 const TextShadowGenerator = () => {
   const [offsetX, setOffsetX] = useState(4);
@@ -42,10 +43,11 @@ const TextShadowGenerator = () => {
               <RangeInput label="Horizontal Offset" id="textOffsetX" value={offsetX} min="-50" max="50" unit="px" onChange={(e) => setOffsetX(e.target.value)} onReset={resetOffsetX} />
               <RangeInput label="Vertical Offset" id="textOffsetY" value={offsetY} min="-50" max="50" unit="px" onChange={(e) => setOffsetY(e.target.value)} onReset={resetOffsetY} />
               <RangeInput label="Blur Radius" id="textBlurRadius" value={blurRadius} min="0" max="50" unit="px" onChange={(e) => setBlurRadius(e.target.value)} onReset={resetBlurRadius} />
-              <div>
-                <label htmlFor="textShadowColor" className="form-label">Shadow Color</label>
-                <input type="color" className="form-control form-control-color w-100" id="textShadowColor" value={shadowColor} onChange={(e) => setShadowColor(e.target.value)} />
-              </div>
+              <ColorPickerButton
+                color={shadowColor}
+                onColorChange={setShadowColor}
+                label="Shadow Color"
+              />
               <RangeInput label="Shadow Opacity" id="textShadowOpacity" value={shadowOpacity} min="0" max="1" step="0.01" unit="" onChange={(e) => setShadowOpacity(e.target.value)} onReset={resetShadowOpacity} />
             </div>
           </div>
