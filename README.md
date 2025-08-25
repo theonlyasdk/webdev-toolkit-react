@@ -29,7 +29,8 @@ A comprehensive collection of web development tools and CSS generators, built wi
     yarn dev
     ```
     This will start the development server, and you can view the application in your browser (usually at `http://localhost:5173`).
-    Before this step, in `vite.config.js`, set the value of `base` to `/`.
+    
+    > Before this step, in `vite.config.js`, set the value of `base` to `/`.
     
     To enable the Google Fonts search feature in the text properties tool, create a `.env` file in the root directory of the project with the following content:
     ```plaintext
