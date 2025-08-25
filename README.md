@@ -31,10 +31,12 @@ A comprehensive collection of web development tools and CSS generators, built wi
     This will start the development server, and you can view the application in your browser (usually at `http://localhost:5173`).
     Before this step, in `vite.config.js`, set the value of `base` to `/`.
     
-    To use Google Fonts search feature in text properties tool, create a `.env` file in the root directory with the following content:
+    To enable the Google Fonts search feature in the text properties tool, create a `.env` file in the root directory of the project with the following content:
     ```plaintext
     VITE_GOOGLE_FONTS_API_KEY=<YOUR_GOOGLE_FONTS_API_KEY>
     ```
+    To obtain the required API key, refer to the (Google Fonts Developer API)[https://developers.google.com/fonts/docs/developer_api] page.
+
 ## Libraries used
 Thanks to the following libraries, I was able to build this project:
 *   **[React](https://react.dev/) (with [Vite](https://vite.dev/))**
