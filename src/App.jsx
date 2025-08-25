@@ -69,17 +69,22 @@ export default function App() {
   }
 
   return (
-    <div className="fill-container">
+    <div className="fill-container d-flex flex-column flex-md-row">
       {/* Hamburger (only mobile, hidden on desktop) */}
-      {!isSidebarOpen && (
+
+      <div className="content-titlebar d-md-none d-flex align-items-center gap-2">
         <button
-          className="hamburger-btn d-md-none"
+          className="hamburger-btn"
           onClick={toggleSidebar}
           aria-label="Open sidebar"
+          title="Open sidebar"
         >
-          ☰
+          <i class="bi bi-list"></i>
         </button>
-      )}
+        <div className="font-sora">
+          Webdev Toolkit
+        </div>
+      </div>
 
       {/* Sidebar */}
       <Sidebar

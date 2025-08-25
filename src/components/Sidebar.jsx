@@ -18,13 +18,14 @@ const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme, isOpen, toggle
 
       <nav className={`sidebar ${isOpen ? 'open' : ''}`}>
         {/* Close button (mobile only) */}
-        <button className="close-btn d-md-none" onClick={toggleSidebar}>
-          ✖
-        </button>
-
         <div>
-          <div className="sidebar-header">Webdev Toolkit</div>
-          <ul className="nav flex-column">
+          <button className="close-btn d-md-none flex-1" onClick={toggleSidebar} title="Close sidebar">
+            <i className="bi bi-x-lg"></i>
+          </button>
+          <div className="sidebar-header font-sora d-flex flex-row justify-space-between align-items-center w-100 text-center">
+            Webdev Toolkit
+          </div>
+          <ul className="sidebar-content nav flex-column">
             {tools.map(tool => (
               <li className="nav-item" key={tool.id}>
                 <a
