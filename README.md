@@ -1,12 +1,6 @@
 # Webdev Toolkit
 
-A comprehensive collection of web development tools and CSS generators, built with React. This toolkit aims to speed up common web development tasks by providing easy to use tools to generate CSS code for various properties, convert colors, and more.
-
-## Libraries used
-Thanks to the following libraries, I was able to build this project:
-*   **[React](https://react.dev/) (with [Vite](https://vite.dev/))**
-*   **[Bootstrap](https://getbootstrap.com/)**
-*   **[React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)**
+A comprehensive collection of web development tools and CSS generators, built with React. This toolkit aims to speed up common web development tasks by providing easy to use tools like CSS code generators for various CSS properties, color converters, and more.
 
 ## Building and testing
 
@@ -41,9 +35,21 @@ Thanks to the following libraries, I was able to build this project:
     ```plaintext
     VITE_GOOGLE_FONTS_API_KEY=<YOUR_GOOGLE_FONTS_API_KEY>
     ```
+## Libraries used
+Thanks to the following libraries, I was able to build this project:
+*   **[React](https://react.dev/) (with [Vite](https://vite.dev/))**
+*   **[Bootstrap](https://getbootstrap.com/)**
+*   **[React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)**
+
 ## Contributing
 
 Contributions are welcome! Please feel free to open an issue or submit a pull request.
+
+## Contributors
+
+<!-- readme: theonlyasdk,contributors -start -->
+
+<!-- readme: theonlyasdk,contributors -end -->
 
 ## License
 
