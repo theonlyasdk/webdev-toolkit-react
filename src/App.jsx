@@ -8,6 +8,8 @@ import ColorConverter from './components/ColorConverter';
 import TextPropertiesGenerator from './components/TextPropertiesGenerator';
 import TransformGenerator from './components/TransformGenerator';
 import LoadingSpinner from './components/LoadingSpinner';
+import CssMinifier from './components/CssMinifier';
+import JsMinifier from './components/JsMinifier';
 
 export default function App() {
   const [activeTool, setActiveTool] = useState('box-shadow-generator');
@@ -55,6 +57,10 @@ export default function App() {
         return <TextPropertiesGenerator />;
       case 'transform-generator':
         return <TransformGenerator />;
+      case 'css-minifier':
+        return <CssMinifier />;
+      case 'js-minifier':
+        return <JsMinifier />;
       default:
         return <BoxShadowGenerator />;
     }
