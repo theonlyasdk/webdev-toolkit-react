@@ -9,6 +9,8 @@ const Sidebar = ({ activeTool, setActiveTool, theme, toggleTheme, isOpen, toggle
     { id: 'color-converter', name: 'Color Converter', icon: 'bi-eyedropper' },
     { id: 'text-properties-generator', name: 'Text Properties', icon: 'bi-textarea-t' },
     { id: 'transform-generator', name: 'Transform', icon: 'bi-arrows-move' },
+    { id: 'css-minifier', name: 'Css Minifier', icon: 'bi-arrows-move' },
+    { id: 'js-minifier', name: 'Js Minifier', icon: 'bi-arrows-move' }
   ];
 
   return (
