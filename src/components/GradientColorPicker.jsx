@@ -77,104 +77,139 @@ const GradientColorPicker = ({
     return (
       <button
         type="button"
-        className="gradient-color-picker-trigger"
+        className="btn d-flex align-items-center justify-content-center border"
+        style={{ 
+          width: '40px', 
+          height: '40px',
+          backgroundColor: color,
+          flexShrink: 0
+        }}
         onClick={handleColorClick}
         disabled={disabled}
-        style={{ backgroundColor: color }}
         title="Click to open color picker"
       >
-        <i className="bi bi-palette-fill"></i>
+        <i className="bi bi-palette-fill" style={{ 
+          color: 'white',
+          textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+          fontSize: '1rem'
+        }}></i>
       </button>
     );
   }
 
   return (
-    <div className="gradient-color-picker-overlay">
-      <div className="gradient-color-picker-dialog" ref={dialogRef}>
-        <div className="gradient-color-picker-header">
-          <span>Color Picker</span>
-          <button className="close-btn" onClick={() => setIsOpen(false)}>
-            <i className="bi bi-x-lg"></i>
-          </button>
-        </div>
-
-        <div className="gradient-color-picker-content">
-          <div className="color-preview">
-            <div 
-              className="color-swatch" 
-              style={{ backgroundColor: currentColor }}
-            ></div>
-            <input
-              type="text"
-              value={currentColor}
-              onChange={handleHexChange}
-              className="hex-input"
-              placeholder="#000000"
-            />
+    <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+      <div className="modal-dialog modal-dialog-centered" ref={dialogRef}>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Color Picker</h5>
+            <button 
+              type="button" 
+              className="btn-close" 
+              onClick={() => setIsOpen(false)}
+              aria-label="Close"
+            ></button>
           </div>
 
-          <div className="color-inputs">
-            <div className="input-group">
-              <label>Red</label>
+          <div className="modal-body">
+            <div className="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded">
+              <div 
+                className="rounded border"
+                style={{ 
+                  width: '50px', 
+                  height: '50px', 
+                  backgroundColor: currentColor,
+                  flexShrink: 0
+                }}
+              ></div>
               <input
-                type="range"
-                min="0"
-                max="255"
-                value={rgb.r}
-                onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) })}
-              />
-              <input
-                type="number"
-                min="0"
-                max="255"
-                value={rgb.r}
-                onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) || 0 })}
-              />
-            </div>
-            <div className="input-group">
-              <label>Green</label>
-              <input
-                type="range"
-                min="0"
-                max="255"
-                value={rgb.g}
-                onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) })}
-              />
-              <input
-                type="number"
-                min="0"
-                max="255"
-                value={rgb.g}
-                onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) || 0 })}
+                type="text"
+                value={currentColor}
+                onChange={handleHexChange}
+                className="form-control"
+                placeholder="#000000"
+                style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}
               />
             </div>
-            <div className="input-group">
-              <label>Blue</label>
-              <input
-                type="range"
-                min="0"
-                max="255"
-                value={rgb.b}
-                onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) })}
-              />
-              <input
-                type="number"
-                min="0"
-                max="255"
-                value={rgb.b}
-                onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) || 0 })}
-              />
+
+            <div className="d-flex flex-column gap-3">
+              <div>
+                <label className="form-label fw-medium">Red</label>
+                <div className="d-flex gap-2 align-items-center">
+                  <input
+                    type="range"
+                    className="form-range flex-grow-1"
+                    min="0"
+                    max="255"
+                    value={rgb.r}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) })}
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    style={{ width: '80px' }}
+                    min="0"
+                    max="255"
+                    value={rgb.r}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="form-label fw-medium">Green</label>
+                <div className="d-flex gap-2 align-items-center">
+                  <input
+                    type="range"
+                    className="form-range flex-grow-1"
+                    min="0"
+                    max="255"
+                    value={rgb.g}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) })}
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    style={{ width: '80px' }}
+                    min="0"
+                    max="255"
+                    value={rgb.g}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="form-label fw-medium">Blue</label>
+                <div className="d-flex gap-2 align-items-center">
+                  <input
+                    type="range"
+                    className="form-range flex-grow-1"
+                    min="0"
+                    max="255"
+                    value={rgb.b}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) })}
+                  />
+                  <input
+                    type="number"
+                    className="form-control"
+                    style={{ width: '80px' }}
+                    min="0"
+                    max="255"
+                    value={rgb.b}
+                    onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="gradient-color-picker-actions">
-          <button className="btn btn-secondary" onClick={() => setIsOpen(false)}>
-            Cancel
-          </button>
-          <button className="btn btn-primary" onClick={() => setIsOpen(false)}>
-            Save
-          </button>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={() => setIsOpen(false)}>
+              Cancel
+            </button>
+            <button type="button" className="btn btn-primary" onClick={() => setIsOpen(false)}>
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
