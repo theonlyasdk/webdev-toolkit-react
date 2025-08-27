@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import ColorPickerButton from './ColorPickerButton';
 
 const ColorConverter = () => {
   const [color, setColor] = useState('#0d6efd');
@@ -70,10 +71,11 @@ const ColorConverter = () => {
         <div className="row g-4">
           <div className="col-lg-5">
             <div className="d-flex flex-column gap-3">
-              <div>
-                <label htmlFor="color-input-picker" className="form-label">Input Color</label>
-                <input type="color" className="form-control form-control-color w-100" id="color-input-picker" value={color} onChange={e => setColor(e.target.value)} />
-              </div>
+              <ColorPickerButton
+                color={color}
+                onColorChange={setColor}
+                label="Input Color"
+              />
               <input type="text" className="form-control" id="color-input-text" value={color} onChange={e => setColor(e.target.value)} />
             </div>
           </div>

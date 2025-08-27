@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import RangeInput from './RangeInput';
 import CodeOutput from './CodeOutput';
+import ColorPickerButton from './ColorPickerButton';
 
 const BoxShadowGenerator = () => {
   const [offsetX, setOffsetX] = useState(10);
@@ -46,10 +47,11 @@ const BoxShadowGenerator = () => {
               <RangeInput label="Vertical Offset" id="offsetY" value={offsetY} min="-50" max="50" unit="px" onChange={(e) => setOffsetY(e.target.value)} onReset={resetOffsetY} />
               <RangeInput label="Blur Radius" id="blurRadius" value={blurRadius} min="0" max="100" unit="px" onChange={(e) => setBlurRadius(e.target.value)} onReset={resetBlurRadius} />
               <RangeInput label="Spread Radius" id="spreadRadius" value={spreadRadius} min="-50" max="50" unit="px" onChange={(e) => setSpreadRadius(e.target.value)} onReset={resetSpreadRadius} />
-              <div>
-                <label htmlFor="shadowColor" className="form-label">Shadow Color</label>
-                <input type="color" className="form-control form-control-color w-100" id="shadowColor" value={shadowColor} onChange={(e) => setShadowColor(e.target.value)} />
-              </div>
+              <ColorPickerButton
+                color={shadowColor}
+                onColorChange={setShadowColor}
+                label="Shadow Color"
+              />
               <RangeInput label="Shadow Opacity" id="shadowOpacity" value={shadowOpacity} min="0" max="1" step="0.01" unit="" onChange={(e) => setShadowOpacity(e.target.value)} onReset={resetShadowOpacity} />
               <div className="form-check form-switch mt-2">
                 <input className="form-check-input" type="checkbox" role="switch" id="insetSwitch" checked={inset} onChange={(e) => setInset(e.target.checked)} />

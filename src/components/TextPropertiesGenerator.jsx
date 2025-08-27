@@ -4,6 +4,7 @@ import RangeInput from './RangeInput';
 import CodeOutput from './CodeOutput';
 import GradientPicker from './GradientPicker';
 import FontSelector from './FontSelector';
+import ColorPickerButton from './ColorPickerButton';
 
 const TextPropertiesGenerator = () => {
   const [fontSize, setFontSize] = useState(56);
@@ -78,10 +79,11 @@ ${colorType === 'solid' ? `color: ${textColor};` : `background-image: ${textColo
                 </select>
               </div>
               {colorType === 'solid' ? (
-                <div>
-                  <label htmlFor="tp-color" className="form-label">Text Color</label>
-                  <input type="color" className="form-control form-control-color w-100" id="tp-color" value={solidColor} onChange={e => setSolidColor(e.target.value)} />
-                </div>
+                <ColorPickerButton
+                  color={solidColor}
+                  onColorChange={setSolidColor}
+                  label="Text Color"
+                />
               ) : (
                 <GradientPicker onGradientChange={setGradientColor} />
               )}
