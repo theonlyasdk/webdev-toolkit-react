@@ -262,8 +262,15 @@ const CustomColorPicker = ({
 
   return (
     <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-      <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 340 }} ref={dialogRef}>
-        <div className="modal-content" style={{ borderRadius: 12 }}>
+      <div
+        className="modal-dialog modal-dialog-centered"
+        style={{
+          maxWidth: 380, // Thoda chota kiya (pehle 480 tha)
+          width: '98%',
+        }}
+        ref={dialogRef}
+      >
+        <div className="modal-content" style={{ borderRadius: 16, padding: 8 }}>
           {showTitleBar && (
             <div className="modal-header py-2 px-3">
               <h5 className="modal-title">Color picker</h5>
@@ -299,21 +306,21 @@ const CustomColorPicker = ({
                     <label className="form-label fw-medium mb-1">Red</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="255" value={rgb.r} onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="255" value={rgb.r} onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="255" value={rgb.r} onChange={(e) => updateColorFromRgb({ ...rgb, r: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Green</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="255" value={rgb.g} onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="255" value={rgb.g} onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="255" value={rgb.g} onChange={(e) => updateColorFromRgb({ ...rgb, g: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Blue</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="255" value={rgb.b} onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="255" value={rgb.b} onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="255" value={rgb.b} onChange={(e) => updateColorFromRgb({ ...rgb, b: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                 </div>
@@ -325,21 +332,21 @@ const CustomColorPicker = ({
                     <label className="form-label fw-medium mb-1">Hue</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="360" value={displayHsl.h} onChange={(e) => updateColorFromHsl({ ...displayHsl, h: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="360" value={displayHsl.h} onChange={(e) => updateColorFromHsl({ ...displayHsl, h: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="360" value={displayHsl.h} onChange={(e) => updateColorFromHsl({ ...displayHsl, h: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Saturation (%)</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="100" value={displayHsl.s} onChange={(e) => updateColorFromHsl({ ...displayHsl, s: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="100" value={displayHsl.s} onChange={(e) => updateColorFromHsl({ ...displayHsl, s: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="100" value={displayHsl.s} onChange={(e) => updateColorFromHsl({ ...displayHsl, s: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Lightness (%)</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="100" value={displayHsl.l} onChange={(e) => updateColorFromHsl({ ...displayHsl, l: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="100" value={displayHsl.l} onChange={(e) => updateColorFromHsl({ ...displayHsl, l: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="100" value={displayHsl.l} onChange={(e) => updateColorFromHsl({ ...displayHsl, l: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                 </div>
@@ -351,21 +358,21 @@ const CustomColorPicker = ({
                     <label className="form-label fw-medium mb-1">Hue</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="360" value={displayHsb.h} onChange={(e) => updateColorFromHsb({ ...displayHsb, h: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="360" value={displayHsb.h} onChange={(e) => updateColorFromHsb({ ...displayHsb, h: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="360" value={displayHsb.h} onChange={(e) => updateColorFromHsb({ ...displayHsb, h: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Saturation (%)</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="100" value={displayHsb.s} onChange={(e) => updateColorFromHsb({ ...displayHsb, s: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="100" value={displayHsb.s} onChange={(e) => updateColorFromHsb({ ...displayHsb, s: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="100" value={displayHsb.s} onChange={(e) => updateColorFromHsb({ ...displayHsb, s: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                   <div>
                     <label className="form-label fw-medium mb-1">Brightness (%)</label>
                     <div className="d-flex gap-2 align-items-center">
                       <input type="range" className="form-range flex-grow-1" min="0" max="100" value={displayHsb.b} onChange={(e) => updateColorFromHsb({ ...displayHsb, b: parseInt(e.target.value) })} />
-                      <input type="number" className="form-control" style={{ width: 60 }} min="0" max="100" value={displayHsb.b} onChange={(e) => updateColorFromHsb({ ...displayHsb, b: parseInt(e.target.value) || 0 })} />
+                      <input type="number" className="form-control" style={{ width: 80 }} min="0" max="100" value={displayHsb.b} onChange={(e) => updateColorFromHsb({ ...displayHsb, b: parseInt(e.target.value) || 0 })} />
                     </div>
                   </div>
                 </div>

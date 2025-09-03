@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RangeInput from './RangeInput';
-import GradientColorPicker from './GradientColorPicker';
+import CustomColorPicker from './CustomColorPicker'; // Use this!
 
 const GradientPicker = ({ onGradientChange }) => {
   const [stops, setStops] = useState([
@@ -11,6 +11,7 @@ const GradientPicker = ({ onGradientChange }) => {
   const [angle, setAngle] = useState(90);
   const [radialShape, setRadialShape] = useState('ellipse');
   const [nextId, setNextId] = useState(3);
+  const [openPickerId, setOpenPickerId] = useState(null);
 
   useEffect(() => {
     const sortedStops = [...stops].sort((a, b) => a.position - b.position);
@@ -49,12 +50,52 @@ const GradientPicker = ({ onGradientChange }) => {
         <div id="gradient-stops">
           {stops.map(stop => (
             <div className="gradient-stop" key={stop.id}>
-              <GradientColorPicker 
-                color={stop.color} 
-                onColorChange={(color) => handleStopChange(stop.id, 'color', color)} 
+              {/* Color Picker Button */}
+              <button
+                type="button"
+                className="btn d-flex align-items-center justify-content-center border"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: stop.color,
+                  flexShrink: 0
+                }}
+                onClick={() => setOpenPickerId(stop.id)}
+                title="Pick color"
+              >
+                <i className="bi bi-palette-fill" style={{
+                  color: 'white',
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)',
+                  fontSize: '1rem'
+                }}></i>
+              </button>
+              {/* Color Picker Dialog */}
+              {openPickerId === stop.id && (
+                <CustomColorPicker
+                  isOpen={true}
+                  initialColor={stop.color}
+                  onColorChange={color => {
+                    handleStopChange(stop.id, 'color', color);
+                  }}
+                  onClose={() => setOpenPickerId(null)}
+                />
+              )}
+              <input
+                type="range"
+                className="form-range"
+                min="0"
+                max="100"
+                value={stop.position}
+                onChange={e => handleStopChange(stop.id, 'position', e.target.value)}
               />
-              <input type="range" className="form-range" min="0" max="100" value={stop.position} onChange={e => handleStopChange(stop.id, 'position', e.target.value)} />
-              <button className="btn btn-sm btn-outline-danger" onClick={() => removeStop(stop.id)} title="Delete stop" disabled={stops.length <= 2}><i className="bi bi-trash"></i></button>
+              <button
+                className="btn btn-sm btn-outline-danger"
+                onClick={() => removeStop(stop.id)}
+                title="Delete stop"
+                disabled={stops.length <= 2}
+              >
+                <i className="bi bi-trash"></i>
+              </button>
             </div>
           ))}
         </div>
