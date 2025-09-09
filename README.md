@@ -62,6 +62,13 @@ Contributions are welcome! Please feel free to open an issue or submit a pull re
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Youknowzair">
+                    <img src="https://avatars.githubusercontent.com/u/80479109?v=4" width="100;" alt="Youknowzair"/>
+                    <br />
+                    <sub><b>Syed Uzair</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Bikash-sharma-5">
                     <img src="https://avatars.githubusercontent.com/u/174730877?v=4" width="100;" alt="Bikash-sharma-5"/>
                     <br />
